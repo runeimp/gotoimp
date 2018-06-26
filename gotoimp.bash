@@ -1,9 +1,13 @@
 #
-# Replacing Homebrew package goto with shell function
+# GoToImp
+# BASH directory traversal enhancement
+#
+# @author RuneImp <runeimp@gmail.com>
 #
 #####
 # ChangeLog
 # ---------
+# 2018-06-25  v0.5.1      Updated docs
 # 2018-06-25  v0.5.0      Updated fresh install initialization and BASH completion
 # 2018-06-18  v0.4.0      Added tmux support
 # 2018-05-10  v0.3.0      Initial BASH Completion added
@@ -17,7 +21,7 @@
 #
 # declare -r and readonly is noisy...
 #
-declare _GOTO_APP_VERSION='0.5.0'
+declare _GOTO_APP_VERSION='0.5.1'
 
 
 #
