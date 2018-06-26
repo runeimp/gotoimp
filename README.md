@@ -20,7 +20,7 @@ To start using it immediately and check the install do
 ```
 $ exec $SHELL --login
 $ goto -v
-gotoimp v0.5.0
+gotoimp v0.5.1
 ```
 
 
@@ -29,7 +29,7 @@ Usage
 
 ```bash
 $ goto -h
-gotoimp v0.5.0
+gotoimp v0.5.1
 
 Command for storing and utilizing aliases to directories
 
@@ -46,14 +46,15 @@ OPTIONS:
 
 ```
 
+More info to be added soon...
 
 
 Rational
 --------
 
-I came across [iridakos/goto][iridakos/goto - GitHub] via Homebrew on my Mac and thought "This is awesome!" when I read the description. I had been looking for something like this but hadn't found the right fit yet. So I tried it. And unfortunately had several problems with it.
+I came across [iridakos/goto][iridakos/goto - GitHub] via Homebrew on my Mac and thought "This is awesome!" when I read the description. I had been looking for something like this but hadn't found the right fit yet. So I tried it. And unfortunately had several problems with it. I had some problems with it on macOS which I had fun fixing. And I'm not being sarcastic at all. It was an interesting challenge and ultimately taught me more about finagling files with BASH. Thanks for the insperation Lazarus. Good times! :-)
 
-I had some problems with it on macOS which I had fun fixing. And I'm not being sarcastic at all. It was an interesting challenge and ultimately taught me more about finagling files with BASH. Thanks for the insperation Lazarus. Good times! :-)
+Following are the main reasons I decided to roll my own:
 
 1. [iridakos/goto][iridakos/goto - GitHub] as installed by Homebrew on macOS requires [bash-completion][scop/bash-completion - GitHub] as a dependency. As of this writing there are a few problems with that for me:
 	1. [bash-completion][scop/bash-completion - GitHub] is not installed automatically as a dependency when installing [iridakos/goto][iridakos/goto - GitHub].
