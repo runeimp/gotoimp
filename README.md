@@ -1,4 +1,4 @@
-GoToImp v0.5.2
+GoToImp v0.6.0
 ==============
 
 This is a BASH directory traversal enhancement inspired by [goto][iridakos/goto - GitHub] from Lazarus Lazaridis. His tool is awesome and has features mine does not. I highly recommend trying both tools as they are similar but the few differences might make one a better fit for you than the other.
@@ -20,7 +20,7 @@ To start using it immediately and check the install do
 ```
 $ exec $SHELL --login
 $ goto -v
-gotoimp v0.5.2
+gotoimp v0.6.0
 ```
 
 
@@ -29,7 +29,7 @@ Usage
 
 ```bash
 $ goto -h
-gotoimp v0.5.2
+gotoimp v0.6.0
 
 Command for storing and utilizing aliases to directories
 
@@ -37,6 +37,7 @@ OPTIONS:
    -a | --add <alias> <path>                    Add a alias path
   -at | --add-title <alias> <path> <title>      Add an alias path with title
    -d | --del | --delete <alias>                Delete a goto alias
+   -e | --edit                                  Display configuration paths for editing
    -h | --help                                  Display this help info
    -l | --list                                  List goto aliases
    -t | --title <alias> <title>                 Add an alias title
@@ -72,7 +73,7 @@ ToDo
 * [ ] Add fish tab completions
 * [ ] Add ion tab completions
 * [ ] Add ksh tab completions
-* [ ] Add PowerShell tab completions
+* [ ] Add PowerShell tab completions?
 * [ ] Add tcsh tab completions
 * [ ] Add zsh tab completions
 
