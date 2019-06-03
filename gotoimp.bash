@@ -7,6 +7,7 @@
 #####
 # ChangeLog
 # ---------
+# 2019-06-03  v0.6.0      Cleaned up data path code and added edit options
 # 2019-02-19  v0.5.2      Updated and moved terminal wipe code to function term_wipe
 # 2018-06-25  v0.5.1      Updated docs
 # 2018-06-25  v0.5.0      Updated fresh install initialization and BASH completion
@@ -22,7 +23,8 @@
 #
 # declare -r and readonly is noisy...
 #
-declare _GOTO_APP_VERSION='0.5.2'
+declare _GOTO_APP_NAME='GoToImp'
+declare _GOTO_APP_VERSION='0.6.0'
 
 
 #
@@ -79,6 +81,7 @@ _gotoimp_help()
 	   -a | --add <alias> <path>                    Add a alias path
 	  -at | --add-title <alias> <path> <title>      Add an alias path with title
 	   -d | --del | --delete <alias>                Delete a goto alias
+	   -e | --edit                                  Display configuration paths for editing
 	   -h | --help                                  Display this help info
 	   -l | --list                                  List goto aliases
 	   -t | --title <alias> <title>                 Add an alias title
@@ -249,6 +252,11 @@ goto()
 				fi
 				shift
 				;;
+			-e | --edit)
+				echo "$_GOTO_APP_NAME Data Path = '$_gotoimp_data_path'"
+				echo "$_GOTO_APP_NAME Alias DB = '$_gotoimp_alias_db'"
+				echo "$_GOTO_APP_NAME Title DB = '$_gotoimp_title_db'"
+				;;
 			-h | --help)
 				_gotoimp_help
 				;;
@@ -382,19 +390,36 @@ term_wipe()
 #
 
 # Check for existing Shorcut Alias DB
-if [[ -f "${XDG_DATA_HOME}/gotoimp/alias_db.txt" ]]; then
+if [[ -d "${XDG_DATA_HOME}/gotoimp" ]]; then
 	_gotoimp_data_path="${XDG_DATA_HOME}/gotoimp"
-elif [[ -f ~/.local/share/gotoimp/alias_db.txt ]]; then
+elif [[ -d ~/.local/share/gotoimp ]]; then
 	_gotoimp_data_path=~/.local/share/gotoimp
-elif [[ -f ~/.local/gotoimp/alias_db.txt ]]; then
+elif [[ -f ~/.local/gotoimp ]]; then
 	_gotoimp_data_path=~/.local/gotoimp
 elif [[ -d ~/.gotoimp ]]; then
 	_gotoimp_data_path=~/.gotoimp
+fi
+
+# Define Path to Alias DB
+if [[ ${#_gotoimp_data_path} -gt 0 ]]; then
+	_gotoimp_alias_db="${_gotoimp_data_path}/alias_db.txt"
+	if [[ -f "${_gotoimp_data_path}/alias_db.txt" ]]; then
+		# All good in the hood
+		:
+	elif [[ -f ~/.goto ]]; then
+		# NOTE: This is a bit magical. Should probably get user input.
+		_gotoimp_alias_db=~/.goto
+		echo "${_GOTO_APP_NAME} copying '"~/.goto"' to '${_gotoimp_data_path}/alias_db.txt'"
+		cp ~/.goto "${_gotoimp_data_path}/alias_db.txt"
+	else
+		echo "${_GOTO_APP_NAME} creating missing '${_gotoimp_data_path}/alias_db.txt'"
+		touch "${_gotoimp_data_path}/alias_db.txt"
+	fi
 elif [[ -f ~/.goto ]]; then
 	_gotoimp_alias_db=~/.goto
 fi
 
-# Define Data Path if Shorcut Alias DB not found
+# Define Data Path if data path not found
 if [[ ${#_gotoimp_data_path} -eq 0 ]]; then
 	if [[ -d "${XDG_DATA_HOME}" ]]; then
 		_gotoimp_data_path="${XDG_DATA_HOME}/gotoimp"
@@ -427,6 +452,9 @@ if [[ ${#_gotoimp_title_db} -eq 0 ]]; then
 		touch "${_gotoimp_title_db}"
 	fi
 fi
+# echo "_gotoimp_data_path = '$_gotoimp_data_path'"
+# echo "_gotoimp_alias_db = '$_gotoimp_alias_db'"
+# echo "_gotoimp_title_db = '$_gotoimp_title_db'"
 
 _gotoimp_bash_completion
 
