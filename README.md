@@ -1,5 +1,5 @@
-GoToImp
-=======
+GoToImp v0.5.2
+==============
 
 This is a BASH directory traversal enhancement inspired by [goto][iridakos/goto - GitHub] from Lazarus Lazaridis. His tool is awesome and has features mine does not. I highly recommend trying both tools as they are similar but the few differences might make one a better fit for you than the other.
 
@@ -20,7 +20,7 @@ To start using it immediately and check the install do
 ```
 $ exec $SHELL --login
 $ goto -v
-gotoimp v0.5.1
+gotoimp v0.5.2
 ```
 
 
@@ -29,7 +29,7 @@ Usage
 
 ```bash
 $ goto -h
-gotoimp v0.5.1
+gotoimp v0.5.2
 
 Command for storing and utilizing aliases to directories
 
