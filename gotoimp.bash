@@ -7,6 +7,7 @@
 #####
 # ChangeLog
 # ---------
+# 2019-02-19  v0.5.2      Updated and moved terminal wipe code to function term_wipe
 # 2018-06-25  v0.5.1      Updated docs
 # 2018-06-25  v0.5.0      Updated fresh install initialization and BASH completion
 # 2018-06-18  v0.4.0      Added tmux support
@@ -21,7 +22,7 @@
 #
 # declare -r and readonly is noisy...
 #
-declare _GOTO_APP_VERSION='0.5.1'
+declare _GOTO_APP_VERSION='0.5.2'
 
 
 #
@@ -333,15 +334,7 @@ goto()
 				done
 
 				if [[ $not_found -eq 1 ]]; then
-					if [[ "$(uname -s)" == 'Darwin' ]] && [[ ${#TMUX} -eq 0 ]]; then
-						osascript -e 'tell application "System Events" to keystroke "k" using command down'
-					elif [[ -f $(which 'tput') ]]; then
-						tput reset
-					elif [[ -f $(which 'reset') ]]; then
-						reset
-					else
-						clear
-					fi
+					term_wipe
 					i=0
 					# echo "\$goto_name: $goto_name"
 					while [[ $i -lt $_gotoimp_title_length ]]; do
@@ -364,6 +357,23 @@ goto()
 
 		shift
 	done
+}
+
+term_wipe()
+{
+	if [[ ${#VISUAL_STUDIO_CODE} -gt 0 ]]; then
+		clear
+	elif [[ $KITTY_WINDOW_ID -gt 0 ]] || [[ ${#TMUX} -gt 0 ]] || [[ "$TERM_PROGRAM" = 'vscode' ]]; then
+		printf '\033c'
+	elif [[ "$(uname)" == 'Darwin' ]] || [[ "$TERM_PROGRAM" = 'Apple_Terminal' ]] || [[ "$TERM_PROGRAM" = 'iTerm.app' ]]; then
+		osascript -e 'tell application "System Events" to keystroke "k" using command down'
+	elif [[ -x "$(which tput)" ]]; then
+		tput reset
+	elif [[ -x "$(which reset)" ]]; then
+		reset
+	else
+		clear
+	fi
 }
 
 
